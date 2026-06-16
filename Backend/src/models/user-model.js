@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+    },
+    zernioProfileId: {
+      type: String,
+      required: true,
     },
   },
   {

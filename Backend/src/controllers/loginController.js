@@ -1,8 +1,13 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user-model");
-const envConfig = require("../config/env");
+const envConfig = require("../config/env-config");
 
+/**
+ * @description Login a user with email and password, generate a JWT token, and return the user data and token to the client.
+ * @route POST /api/auth/login
+ * @access Public
+ */
 module.exports.loginController = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -37,8 +42,6 @@ module.exports.loginController = async (req, res) => {
         expiresIn: "3d",
       },
     );
-
-    res.cookie({ token: token });
 
     return res.status(200).json({
       success: true,

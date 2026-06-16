@@ -1,7 +1,12 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user-model");
-const envConfig = require("../config/env");
+const envConfig = require("../config/env-config");
 
+/**
+ * @description Register a new user by validating the input, checking for existing users, hashing the password, creating the user in the database, and returning a JWT token for authentication.
+ * @route POST /api/auth/register
+ * @access Public
+ */
 module.exports.registerController = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -38,7 +43,6 @@ module.exports.registerController = async (req, res) => {
       envConfig.JWT_SECRET,
       { expiresIn: "3d" },
     );
-    res.cookie({ token: token });
 
     return res.status(201).json({
       success: true,
