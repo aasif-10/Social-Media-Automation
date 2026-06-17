@@ -52,12 +52,10 @@ module.exports.generateAuthUrl = async (req, res) => {
 
     res.status(200).json({ success: true, authUrl });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to generate authentication URL",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate authentication URL",
+    });
   }
 };
 

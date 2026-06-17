@@ -16,11 +16,16 @@ if (!process.env.ZERNIO_API_KEY) {
   throw new Error("ZERNIO_API_KEY is required in .env file");
 }
 
+if (!process.env.GOOGLE_API_KEY) {
+  throw new Error("GOOGLE_API_KEY is required in .env file");
+}
+
 const envConfig = {
   JWT_SECRET: process.env.JWT_SECRET,
   MONGODB_URI: process.env.MONGODB_URI,
   PORT: process.env.PORT,
   ZERNIO_API_KEY: process.env.ZERNIO_API_KEY,
+  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
 };
 
 module.exports = envConfig;
