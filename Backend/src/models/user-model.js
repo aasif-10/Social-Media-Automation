@@ -14,11 +14,9 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      unique: true,
     },
     zernioProfileId: {
       type: String,
-      required: true,
     },
   },
   {

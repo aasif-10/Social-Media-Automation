@@ -25,7 +25,7 @@ const postSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["draft", "scheduled", "published", "failed"],
-      default: "draft",
+      default: "scheduled",
     },
     platforms: [
       {
@@ -35,8 +35,6 @@ const postSchema = new mongoose.Schema(
           "twitter",
           "instagram",
           "linkedin",
-          "facebook_page",
-          "linkedin_page",
         ],
       },
     ],

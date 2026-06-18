@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user-model");
 const envConfig = require("../config/env-config");
+const bcrypt = require("bcrypt");
 
 /**
  * @description Register a new user by validating the input, checking for existing users, hashing the password, creating the user in the database, and returning a JWT token for authentication.
@@ -47,7 +48,12 @@ module.exports.registerController = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "User created successfully",
-      user: createdUser,
+      user: {
+        _id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+        zernioProfileId: createdUser.zernioProfileId ?? null,
+      },
       token: token,
     });
   } catch (error) {

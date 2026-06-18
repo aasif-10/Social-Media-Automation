@@ -1,4 +1,4 @@
-const { generatePostContent } = require("../../services/ai");
+const { generatePostContent } = require("../services/ai");
 const generationModel = require("../models/generation-model");
 const postModel = require("../models/post-model");
 
@@ -22,8 +22,8 @@ module.exports.generatePost = async (req, res) => {
     const generation = await generationModel.create({
       user: req.user._id,
       prompt,
-      mediaUrl,
-      mediaType,
+      mediaUrl: response?.mediaUrl || "",
+      mediaType: response?.mediaType || "",
       content: response.content,
       tone,
     });

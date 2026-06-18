@@ -22,15 +22,12 @@ const accountSchema = new mongoose.Schema(
     },
     accessToken: {
       type: String,
-      required: true,
     },
     refreshToken: {
       type: String,
-      required: true,
     },
     tokenExpiresAt: {
       type: Date,
-      required: true,
     },
     status: {
       type: String,

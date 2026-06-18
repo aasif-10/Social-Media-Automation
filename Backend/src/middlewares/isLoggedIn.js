@@ -8,31 +8,40 @@ const userModel = require("../models/user-model");
  * If the token is missing or invalid, it responds with a 401 Unauthorized status.
  */
 module.exports.isLoggedIn = async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization?.startsWith("Bearer ") &&
-    req.headers.authorization
-  ) {
-    token = req.headers.authorization?.split(" ")[1];
+  try {
+
+    let token;
+    if (
+      req.headers.authorization?.startsWith("Bearer ") &&
+      req.headers.authorization
+    ) {
+      token = req.headers.authorization?.split(" ")[1];
+    }
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    const decoded = jwt.verify(token, envConfig.JWT_SECRET);
+
+    if (!decoded) {
+      return res.status(401).json({ success: false, message: "Invalid token" });
+    }
+
+    const user = await userModel
+      .findOne({ _id: decoded.userId })
+      .select("-password");
+
+    if (!user) {
+      return res.status(401).json({ success: false, message: "User not found" });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error(error);
+    if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    }
+    return res.status(500).json({ success: false, message: "Internal server error" });
   }
-  if (!token) {
-    return res.status(401).json({ success: false, message: "Unauthorized" });
-  }
-
-  const decoded = jwt.verify(token, envConfig.JWT_SECRET);
-
-  if (!decoded) {
-    return res.status(401).json({ success: false, message: "Invalid token" });
-  }
-
-  const user = await userModel
-    .findOne({ _id: decoded.userId })
-    .select("-password");
-
-  if (!user) {
-    return res.status(401).json({ success: false, message: "User not found" });
-  }
-
-  req.user = user;
-  next();
 };

@@ -1,5 +1,5 @@
 const zernio = require("../config/zerio-config");
-const accountModel = require("../models/user-model");
+const accountModel = require("../models/account-model");
 
 /**
  * @description Get all account details of the logged-in user
@@ -54,7 +54,7 @@ module.exports.addAccount = async (req, res) => {
 module.exports.deleteAccount = async (req, res) => {
   try {
     const { id } = req.params;
-    const account = await accountModel.findById({
+    const account = await accountModel.findOne({
       _id: id,
       user: req.user._id,
     });

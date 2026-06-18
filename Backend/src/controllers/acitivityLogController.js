@@ -1,4 +1,4 @@
-const acitivityLogModel = require("../models/acitivity-log-model");
+const acitivityLogModel = require("../models/activity-log-model");
 
 /**
  * @description Get user activity logs

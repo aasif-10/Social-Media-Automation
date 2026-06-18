@@ -2,16 +2,12 @@ const express = require("express");
 const app = express();
 const db = require("./config/mongoose-connection");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  cookieParser({
-    resave: false,
-    saveUninitialized: false,
-    httpOnly: true,
-  }),
-);
+app.use(cookieParser());
 
 const healthRoute = require("./routes/healthRoute");
 const authRoute = require("./routes/authRoute");

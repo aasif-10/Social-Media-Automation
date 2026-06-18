@@ -46,7 +46,12 @@ module.exports.loginController = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Login successful",
-      user: userExist,
+      user: {
+        _id: userExist._id,
+        name: userExist.name,
+        email: userExist.email,
+        zernioProfileId: userExist.zernioProfileId ?? null,
+      },
       token: token,
     });
   } catch (error) {
