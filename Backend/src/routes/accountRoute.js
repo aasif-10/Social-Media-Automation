@@ -1,5 +1,5 @@
 const express = require("express");
-const { is } = require("../middlewares/isLoggedIn");
+const { isLoggedIn } = require("../middlewares/isLoggedIn");
 const {
   getAccounts,
   addAccount,
